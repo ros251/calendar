@@ -40,12 +40,10 @@ const cubes = [
   'eight',
   'nine'
 ]
-
+const day_str = data['today']['weekday'] + ' ' + data['today']['day'].toString()
 function NineCubes() {
   
   const make9Cubes = (cubes) => {
-    console.log(cubes)
-    console.log(cubes)
     return (cubes.map((num, index) => {
       if(index == 0 || index == 1){
         return <div style={one_two_cube_styles} key={index}>{num}</div>
