@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import makeIcon from '../icons/icon_utilities.jsx'
 
-const cubewrap_styles = {
+let cubewrap_styles = {
   width: '500px',
   margin: '0',
   position: 'absolute',
@@ -10,7 +10,7 @@ const cubewrap_styles = {
   transform: 'translateY(-50%)'
 }
 
-const cube_styles = {
+let cube_styles = {
   backgroundColor: '#272727',
   width: '140px',
   height: '140px',
@@ -19,9 +19,10 @@ const cube_styles = {
   float: 'left',
   fontWeight: 'bold',
   padding: '10px',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  borderRadius: '5px'
 }
-const one_two_cube_styles = {  
+let one_two_cube_styles = {  
   backgroundColor: '#272727',
   width: '140px',
   height: '140px',
@@ -33,7 +34,7 @@ const one_two_cube_styles = {
   boxSizing: 'border-box'
 }
 
-const todays_cube_styles = {
+let todays_cube_styles = {
   backgroundColor: '#272727',
   width: '190px',
   height: '190px',
@@ -44,35 +45,26 @@ const todays_cube_styles = {
   boxSizing: 'border-box'
 }
 
-const icon_matrix = [
-  ['cow', 'bike', 'quote'], 
-  ['guitar'], 
-  ['leaf', 'guitar', 'article'],
-  [],
-  ['pig'],
-  ['guitar'], 
-  [],
-  ['guitar'],
-  [] 
-
-]
-
-function NineCubes() {
-  
+function NineCubes(selected, setSelected, icon_matrix) {
+  const cubeClick = (index) => {
+    setSelected(index)
+    console.log(selected)
+  }
   const makeCube = (num, index, icons_arr) => {
-    console.log('WHY')
     let the_cube_styles = {}
-    if(index == 0 || index == 1){
+    if (index == 0 || index == 1){
       the_cube_styles = one_two_cube_styles
-    } else if (index == 2){
+    } else if(index == 2){
       the_cube_styles = todays_cube_styles
     } else {
       the_cube_styles = cube_styles
     }
-    /*console.log(icons_arr)
-    icons_arr.map((icon) => {
-      console.log(makeIcon(icon))
-    })*/
+    if (index==selected){
+      the_cube_styles = {
+        ...the_cube_styles,
+        border: '1px solid red'
+      }
+    }
     let icons = icons_arr.map((icon_tag, index) => {
       return (
         <div style={{float: 'left'}}>
@@ -80,7 +72,7 @@ function NineCubes() {
         </div>
       )
     })
-    return <div style={the_cube_styles} key={index}>
+    return <div style={the_cube_styles} key={index} onClick={()=>{cubeClick(index)}}>
        {/*<p style={{float:'right', fontWeight: 'bold', margin: '0'}}>{num}</p> <p style={{float:'right', fontWeight: 'bold', margin: '0'}}>{num}</p>*/}
       {icons} 
     </div>
