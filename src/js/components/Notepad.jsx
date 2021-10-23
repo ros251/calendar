@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import makeIcon from '../icons/icon_utilities.jsx'
 
 const notepad_styles = {
   width: '500px',
@@ -39,8 +40,9 @@ function Notepad(arr){
   const makeNotes = (arr) => {
     return arr.map((icon_str) => {
       return <div style={{borderRadius: '5px'}}>
-        <div>
-          <h3 style={note_head_styles}>{icon_str}</h3>
+        <div style={note_head_styles}>
+          {makeIcon(icon_str)}
+          <span >{icon_str}</span>
         </div>
         <div style={note_body_styles}>
           <p style={{margin: '0'}}>Lots of fake text that will eventually
@@ -50,7 +52,9 @@ function Notepad(arr){
     })
   }
   return <div style={notepad_styles}>
-    {makeNotes(arr)}
+    <div style={{paddingBottom: '100px'}}>
+      {makeNotes(arr)}
+    </div>
   </div>
 }
 export default Notepad

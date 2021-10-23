@@ -1,6 +1,8 @@
 import React, { Component, useState } from 'react'
 import NineCubes from './NineCubes.jsx'
 import Notepad from './Notepad.jsx'
+import plus_svg from '../icons/plus.jsx'
+import makeIcon from '../icons/icon_utilities.jsx'
 
 const background_styles = {
   width: '1200px',
@@ -19,6 +21,16 @@ const rightblock_styles = {
   width: '600px',
   height: '742px',
   position: 'relative'
+}
+
+const add_button_styles = {
+  width: '90px',
+  height: '90px',
+  borderRadius: '100%',
+  backgroundColor: '#868686',
+  position: 'absolute',
+  bottom: '90px',
+  left: '50px'
 }
 
 const weekday_str = data['today']['weekday']
@@ -43,6 +55,16 @@ function App() {
       <div style={background_styles}>
         <div id='leftblock' style={leftblock_styles}>
           {Notepad(data_matrix[selected])}
+          <div style={add_button_styles} onClick={()=>{console.log("ADD STUFF")}}>
+            <div style={{margin:'auto',
+              position: 'relative',
+              width: '80px',
+              top: '52%',
+              msTransform: 'translateY(-50%)',
+              transform: 'translateY(-50%)'}}>
+              {plus_svg}
+            </div>
+          </div>
         </div>
         <div id='rightblock' style={rightblock_styles}>
           <h1 style={{margin: '0', color: 'white', display: 'inline-block', fontSize: '48px', position: 'absolute', top: '110px', right: '307px', zIndex: '100'}}>{weekday_str}</h1>
