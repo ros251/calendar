@@ -3,7 +3,7 @@ import NineCubes from './NineCubes.jsx'
 import Notepad from './Notepad.jsx'
 import plus_svg from '../icons/plus.jsx'
 import NewNoteForm from './NewNoteForm.jsx'
-import makeIcon from '../icons/icon_utilities.jsx'
+import {makeIcon} from '../icons/icon_utilities.jsx'
 
 let background_styles = {
   width: '1200px',
@@ -55,11 +55,10 @@ function App() {
   const newNoteClick = () => {
     setNote_bool(true)
   }
-  let new_note=null
+  let new_note=NewNoteForm(setNote_bool)
   if (note_bool) {
     background_styles = {...background_styles,
       filter: 'blur(20px)'}
-    new_note = NewNoteForm(setNote_bool)
   } else {
     background_styles = {...background_styles,
       filter: 'blur(0)'}

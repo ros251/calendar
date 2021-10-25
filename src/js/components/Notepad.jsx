@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import makeIcon from '../icons/icon_utilities.jsx'
+import {makeIcon} from '../icons/icon_utilities.jsx'
 
 const notepad_styles = {
   width: '500px',

@@ -10,36 +10,39 @@ import article_svg from './article.jsx'
 import snowboard_svg from './snowboard.jsx'
 import leaf_svg from './leaf.jsx'
 
-export const ARTICLE = 'article'
-export const BIKE = 'bike'
-export const CHICKEN = 'chicken'
-export const COW = 'cow'
-export const GUITAR = 'guitar'
-export const LEAF = 'leaf'
-export const PIG = 'pig'
-export const QUOTE = 'quote'
-export const SNOWBOARD = 'snowboard'
+const ICON = {
+  ARTICLE: 'article',
+  BIKE: 'bike',
+  CHICKEN: 'chicken',
+  COW: 'cow',
+  GUITAR: 'guitar',
+  LEAF: 'leaf',
+  PIG: 'pig',
+  QUOTE: 'quote',
+  SNOWBOARD: 'snowboard'
+}
 
 const makeIcon = (icon_tag) => {
   switch (icon_tag) {
-    case ARTICLE:
+    case ICON.ARTICLE:
       return article_svg
-    case BIKE:
+    case ICON.BIKE:
       return bike_svg
-    case CHICKEN:
+    case ICON.CHICKEN:
       return chicken_svg
-    case COW:
+    case ICON.COW:
       return cow_svg
-    case GUITAR:
+    case ICON.GUITAR:
       return guitar_svg
-    case LEAF:
+    case ICON.LEAF:
       return leaf_svg
-    case PIG:
+    case ICON.PIG:
       return pig_svg
-    case QUOTE:
+    case ICON.QUOTE:
       return quote_svg
-    case SNOWBOARD:
+    case ICON.SNOWBOARD:
       return snowboard_svg
   }
 }
-export default makeIcon
+export {makeIcon}
+export {ICON}
