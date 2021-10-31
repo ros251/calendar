@@ -49,4 +49,4 @@ def index():
   return render_template('index.html', data=data_dict)
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', port= os.environ.get('PORT', 4242), debug=True)
+  app.run(host='0.0.0.0', port= os.environ.get('PORT', 1242), debug=True)

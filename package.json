@@ -6,9 +6,11 @@
     "bs": "webpack --mode development && python server.py"
   },
   "dependencies": {
-    "@emotion/react": "^11.4.1",
+    "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@mui/material": "^5.0.4",
+    "@mui/styles": "^5.0.2",
+    "@mui/system": "^5.0.5",
     "file-loader": "^6.2.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"

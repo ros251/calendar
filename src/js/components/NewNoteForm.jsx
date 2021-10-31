@@ -55,13 +55,16 @@ function NewNoteForm(setNote_bool) {
   
   let icon_group = null
   if (icon_bool) {
-    icon_group = <div style={{overflowX: 'scroll', height: '70px', width: '333px', margin: '5px', display: 'inline-block', float: 'left', backgroundColor: '#060606'}}>
+    icon_group = <div 
+    style={{display:'flex', flexwrap: 'wrap', flexDirection: 'column', overflowX: 'auto', width: '423px', height: '70px', margin: '5px o 5px 5px', display: 'inline-block', float: 'left', backgroundColor: '#060606'}}>
+        
       {Object.values(ICON).map((icon_str) => {return <div onClick={() => {
           setSelected_icon(icon_str)
           setIcon_bool(false)
         }} style={{float: 'left',}}> 
           {makeIcon(icon_str)}
         </div>})}
+        
     </div>
   } else {
     icon_group = <div>

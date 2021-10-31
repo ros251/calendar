@@ -2,8 +2,9 @@ import React, { Component, useState } from 'react'
 import NineCubes from './NineCubes.jsx'
 import Notepad from './Notepad.jsx'
 import plus_svg from '../icons/plus.jsx'
-import NewNoteForm from './NewNoteForm.jsx'
+import NoteForm from './NoteForm.jsx'
 import {makeIcon} from '../icons/icon_utilities.jsx'
+import styles from '../../css/app.css'
 
 let background_styles = {
   width: '1200px',
@@ -55,7 +56,7 @@ function App() {
   const newNoteClick = () => {
     setNote_bool(true)
   }
-  let new_note=NewNoteForm(setNote_bool)
+  let new_note=NoteForm(setNote_bool)
   if (note_bool) {
     background_styles = {...background_styles,
       filter: 'blur(20px)'}
