@@ -38,15 +38,14 @@ const note_body_styles = {
 
 function Notepad(arr){
   const makeNotes = (arr) => {
-    return arr.map((icon_str) => {
+    return arr.map((note_obj) => {
       return <div style={{borderRadius: '5px'}}>
         <div style={note_head_styles}>
-          {makeIcon(icon_str)}
-          <span >{icon_str}</span>
+          {makeIcon(note_obj['icon_key'])}
+          <span >{note_obj['title']}</span>
         </div>
         <div style={note_body_styles}>
-          <p style={{margin: '0'}}>Lots of fake text that will eventually
-              be real stuff and it will go right here</p>
+          <p style={{margin: '0'}}>{note_obj['text']}</p>
         </div>
       </div>
     })

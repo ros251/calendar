@@ -38,25 +38,25 @@ const add_button_styles = {
 
 const weekday_str = data['today']['weekday']
 const day_str = data['today']['day'].toString()
+const nine_data = data['nine_days_data']
+const nine_date_keys = data['nine_date_keys']
 
 function App() {
   const [selected, setSelected] = useState(2)
-  const [data_matrix, setData_matrix] = useState([
-    ['cow', 'bike', 'quote'], 
-    ['guitar'], 
-    ['leaf', 'guitar', 'article'],
-    [],
-    ['pig'],
-    ['guitar'], 
-    [],
-    ['guitar'],
-    [] 
-  ])
+  const makeDataMatrix = (nine_data) => {
+    return nine_data.map((day_data) => {
+      return day_data.map((note_data) => {
+        return note_data['icon_key']
+      })
+    }) 
+  }
+  const data_matrix = makeDataMatrix(nine_data)
+
   const [note_bool, setNote_bool] = useState(false) 
   const newNoteClick = () => {
     setNote_bool(true)
   }
-  let new_note=NoteForm(setNote_bool)
+  let new_note=NoteForm(setNote_bool, nine_date_keys[selected])
   if (note_bool) {
     background_styles = {...background_styles,
       filter: 'blur(20px)'}
@@ -69,7 +69,7 @@ function App() {
     <div id='appwrap'>
       <div style={background_styles}>
         <div id='leftblock' style={leftblock_styles}>
-          {Notepad(data_matrix[selected])}
+          {Notepad(nine_data[selected])}
           <div style={add_button_styles} onClick={newNoteClick}>
             <div style={{margin:'auto',
               position: 'relative',

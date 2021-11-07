@@ -46,11 +46,12 @@ let todays_cube_styles = {
 }
 
 function NineCubes(selected, setSelected, icon_matrix) {
+  console.log(icon_matrix)
   const cubeClick = (index) => {
     setSelected(index)
-    console.log(selected)
   }
-  const makeCube = (num, index, icons_arr) => {
+  const makeCube = (index, icons_arr) => {
+    console.log(icons_arr)
     let the_cube_styles = {}
     if (index == 0 || index == 1){
       the_cube_styles = one_two_cube_styles
@@ -73,19 +74,17 @@ function NineCubes(selected, setSelected, icon_matrix) {
       )
     })
     return <div style={the_cube_styles} key={index} onClick={()=>{cubeClick(index)}}>
-       {/*<p style={{float:'right', fontWeight: 'bold', margin: '0'}}>{num}</p> <p style={{float:'right', fontWeight: 'bold', margin: '0'}}>{num}</p>*/}
       {icons} 
     </div>
   }
 
+  // This function is not necessary
   const make9Cubes = (cubes) => {
-    return (cubes.map((num, index) => {
-      return makeCube(num, index, icon_matrix[index])
-    }))
+    return cubes.map((icon_keys, index) => makeCube(index, icon_keys) )
   }
   return (
     <div id='cubewrap' style={cubewrap_styles}>
-      {make9Cubes(data['nineDays'])}
+      {make9Cubes(icon_matrix)}
     </div>
   )
 }

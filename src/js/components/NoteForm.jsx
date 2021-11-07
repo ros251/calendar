@@ -25,15 +25,32 @@ const new_note_form_styles = {
 const cancel_button_styles = {width:'235px', height: '70px', float:'left', marginTop: '10px', marginRight:'10px', backgroundColor:'#272727', boxSizing: 'border-box'}
 const add_button_styles = {width:'235px', height: '70px', float:'left', marginTop: '10px', backgroundColor:'#272727', boxSizing: 'border-box'}
 
-function NoteForm(setNote_bool, date_data, date_index, handleUpdate) {
+function NoteForm(setNote_bool, date_key) {
   const [icon_bool, setIcon_bool] = useState(false)
   const [age, setAge] = useState(10)
   const [selected_icon, setSelected_icon] = useState(ICON.GUITAR)
   const [icon_color, setIcon_color] = useState('#A7A7A7')
   
-  const saveNote = () => console.log('SAVE')
+  const saveNote = () => {
+    const note_obj = {
+      date_key: date_key,
+      color : document.getElementById('icon_color_input').value,
+      title : document.getElementById('title_input').value,
+      text : document.getElementById('text_input').value,
+      icon : selected_icon
+    }
+    console.log(selected_icon)
+    /*fetch('/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(note_obj),
+    })*/
+  }
+  
   const cancelNote = () => setNote_bool(false)
-
+  
   const date_str = '11/1/21'
   const date_str_styles = {
     fontWeight: 'bold',
@@ -58,13 +75,13 @@ function NoteForm(setNote_bool, date_data, date_index, handleUpdate) {
     {SingleSelect('70px', '235px', icons)}
     </div>
     <div style={{float:'left'}}>
-      {Input('70px', '235px', '24px', 'Color', false)}
+      {Input('70px', '235px', '24px', 'Color', false, 'icon_color_input')}
     </div>
     <div style={{marginTop: '10px', float:'left'}}>
-      {Input('70px', '480px', '18px', 'Title', false)}
+      {Input('70px', '480px', '18px', 'Title', false, 'title_input')}
     </div>
     <div style={{marginTop: '10px', float:'left'}}>
-      {Input('140px', '480px', '18px', 'Text', true)}
+      {Input('140px', '480px', '18px', 'Text', true, 'text_input')}
     </div>
     <div style={cancel_button_styles} onClick={cancelNote}>
       <div style={{margin:'auto',

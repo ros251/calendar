@@ -1,7 +1,7 @@
 import { borderRadius } from '@mui/system'
 import React, { useState } from 'react'
 
-function Input(height, width, fontsize, text, multi_bool) {
+function Input(height, width, fontsize, text, multi_bool, id) {
   const [focus, setFocus] = useState(false)
   const border_style = focus ? '2px solid #4983bf' : '0'
   const input_styles = {
@@ -19,13 +19,15 @@ function Input(height, width, fontsize, text, multi_bool) {
   }
   let input = null
   if (multi_bool){
-    input = <textarea 
+    input = <textarea
+      id={id}
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
       type='text' 
       style={input_styles}></textarea>
   } else {
-    input = <input 
+    input = <input
+      id={id}
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
       type='text' 
