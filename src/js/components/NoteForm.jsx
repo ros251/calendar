@@ -21,46 +21,42 @@ const new_note_form_styles = {
   padding: '10px',
   boxSizing: 'border-box'
 } 
-
 const cancel_button_styles = {width:'235px', height: '70px', float:'left', marginTop: '10px', marginRight:'10px', backgroundColor:'#272727', boxSizing: 'border-box'}
 const add_button_styles = {width:'235px', height: '70px', float:'left', marginTop: '10px', backgroundColor:'#272727', boxSizing: 'border-box'}
+const date_str_styles = {
+  fontWeight: 'bold',
+  fontSize: '16px',
+  position: 'absolute',
+  top: '80px',
+  left: '50%',
+  transform: 'translateX(-250px)'
+}
 
-function NoteForm(setNote_bool, date_key) {
+
+function NoteForm(setNote_bool, date_str, note_id) {
   const [icon_bool, setIcon_bool] = useState(false)
-  const [age, setAge] = useState(10)
   const [selected_icon, setSelected_icon] = useState(ICON.GUITAR)
   const [icon_color, setIcon_color] = useState('#A7A7A7')
   
   const saveNote = () => {
     const note_obj = {
-      date_key: date_key,
-      color : document.getElementById('icon_color_input').value,
-      title : document.getElementById('title_input').value,
-      text : document.getElementById('text_input').value,
-      icon : selected_icon
+      note_id: null,
+      date_str: date_str,
+      icon_key : selected_icon,
+      icon_color : document.getElementById('icon_color_input').value,
+      structured_data : document.getElementById('structured_data_input').value,
+      free_text : document.getElementById('free_text_input').value,
     }
-    console.log(selected_icon)
-    /*fetch('/add', {
+    fetch('/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(note_obj),
-    })*/
+    })
   }
-  
   const cancelNote = () => setNote_bool(false)
   
-  const date_str = '11/1/21'
-  const date_str_styles = {
-    fontWeight: 'bold',
-    fontSize: '16px',
-    position: 'absolute',
-    top: '80px',
-    left: '50%',
-    transform: 'translateX(-250px)'
-  }
-
   const icons = Object.values(ICON).map((icon_str) => {return <div onClick={() => {
     setSelected_icon(icon_str)
     setIcon_bool(false)
@@ -78,10 +74,10 @@ function NoteForm(setNote_bool, date_key) {
       {Input('70px', '235px', '24px', 'Color', false, 'icon_color_input')}
     </div>
     <div style={{marginTop: '10px', float:'left'}}>
-      {Input('70px', '480px', '18px', 'Title', false, 'title_input')}
+      {Input('70px', '480px', '18px', 'Data', false, 'structured_data_input')}
     </div>
     <div style={{marginTop: '10px', float:'left'}}>
-      {Input('140px', '480px', '18px', 'Text', true, 'text_input')}
+      {Input('140px', '480px', '18px', 'Text', true, 'free_text_input')}
     </div>
     <div style={cancel_button_styles} onClick={cancelNote}>
       <div style={{margin:'auto',

@@ -36,23 +36,25 @@ const note_body_styles = {
   borderRadius: '5px'
 }
 
-function Notepad(arr){
-  const makeNotes = (arr) => {
-    return arr.map((note_obj) => {
+function Notepad(notes_arr){
+  const makeNotes = (notes_arr) => {
+    return notes_arr.map((note_obj) => {
       return <div style={{borderRadius: '5px'}}>
         <div style={note_head_styles}>
-          {makeIcon(note_obj['icon_key'])}
-          <span >{note_obj['title']}</span>
+          <span style={{float:'left'}}>{note_obj['structured_data']}</span>
+          <div style={{float:'right'}}>
+            {makeIcon(note_obj['icon_key'])}
+          </div>
         </div>
         <div style={note_body_styles}>
-          <p style={{margin: '0'}}>{note_obj['text']}</p>
+          <p style={{margin: '0'}}>{note_obj['free_text']}</p>
         </div>
       </div>
     })
   }
   return <div style={notepad_styles}>
     <div style={{paddingBottom: '100px'}}>
-      {makeNotes(arr)}
+      {makeNotes(notes_arr)}
     </div>
   </div>
 }

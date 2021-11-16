@@ -31,31 +31,29 @@ MONTH_ARR = [
 
 @app.route("/")
 def index():
-  conn = sqlite3.connect('./data/calendar_database.db')
+  conn = sqlite3.connect('./data/dev_database.db')
   cur = conn.cursor()
 
   today = date.today()
   nine_dates = []
-  nine_date_keys = []
   nine_days_data = []
   for num in range(1,10):
     iter_day = today + timedelta(days=num-3)
-
-    nine_dates.append(iter_day.strftime('%d/%m/%Y'))
-    date_key = iter_day.strftime('%Y%m%d')
-    nine_date_keys.append(date_key)
-
-    cur.execute("select date_key, icon_key, title, text from Notes where date_key = '" + date_key + "'")
+    date_str = iter_day.strftime('%m/%d/%Y')
+    nine_dates.append(date_str)
+    cur.execute("SELECT note_id, date_str, icon_key, icon_color, structured_data, free_text FROM Notes WHERE date_str = '" + date_str + "'")
     rows = cur.fetchall()
     day_data = []
     for row in rows:
       day_data.append({
-        'icon_key': row[1],
-        'title': row[2],
-        'text': row[3]
+        'note_id': row[0],
+        'date_str': row[1],
+        'icon_key': row[2],
+        'icon_color': row[3],
+        'structured_data': row[4],
+        'free_text': row[5]
       })
     nine_days_data.append(day_data)
-    
 
   data_dict = {
     'today': {
@@ -65,7 +63,6 @@ def index():
       'year': today.year
     },
     'nine_dates' : nine_dates,
-    'nine_date_keys' : nine_date_keys,
     'nine_days_data': nine_days_data
   }
   print(data_dict)
@@ -75,14 +72,17 @@ def index():
 @app.route("/add", methods=["POST"], strict_slashes=False)
 def add_note():
   note_obj = request.json
-  
   print(note_obj)
-  now = datetime.now()
-  note_id = now.strftime('%Y%m%d%H%M%S')
-  print(note_id)
-  conn = sqlite3.connect('./data/calendar_database.db')
+  
+  if (note_obj['note_id']):
+    note_id = note_obj['note_id']
+  else:
+    now = datetime.now()
+    note_id = now.strftime('%Y%m%d%H%M%S')
+  
+  conn = sqlite3.connect('./data/dev_database.db')
   cur = conn.cursor()
-  cur.execute("INSERT INTO Notes (note_id, date_key, icon_key, title, text) VALUES (?,?,?,?,?)",(note_id, note_obj['date_key'], note_obj['icon'], note_obj['title'], note_obj['text']) )
+  cur.execute("INSERT INTO Notes (note_id, date_str, icon_key, icon_color, structured_data, free_text) VALUES (?,?,?,?,?,?)",(note_id, note_obj['date_str'], note_obj['icon_key'], note_obj['icon_color'], note_obj['structured_data'], note_obj['free_text']))
   conn.commit()
   conn.close()
   return 'what'

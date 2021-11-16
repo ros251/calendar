@@ -3,8 +3,6 @@ import NineCubes from './NineCubes.jsx'
 import Notepad from './Notepad.jsx'
 import plus_svg from '../icons/plus.jsx'
 import NoteForm from './NoteForm.jsx'
-import {makeIcon} from '../icons/icon_utilities.jsx'
-import styles from '../../css/app.css'
 
 let background_styles = {
   width: '1200px',
@@ -25,7 +23,6 @@ const rightblock_styles = {
   height: '742px',
   position: 'relative'
 }
-
 const add_button_styles = {
   width: '90px',
   height: '90px',
@@ -39,31 +36,30 @@ const add_button_styles = {
 const weekday_str = data['today']['weekday']
 const day_str = data['today']['day'].toString()
 const nine_data = data['nine_days_data']
-const nine_date_keys = data['nine_date_keys']
+const nine_dates = data['nine_dates']
 
 function App() {
   const [selected, setSelected] = useState(2)
-  const makeDataMatrix = (nine_data) => {
+  const makeIconMatrix = (nine_data) => {
     return nine_data.map((day_data) => {
       return day_data.map((note_data) => {
         return note_data['icon_key']
       })
     }) 
   }
-  const data_matrix = makeDataMatrix(nine_data)
 
   const [note_bool, setNote_bool] = useState(false) 
   const newNoteClick = () => {
     setNote_bool(true)
   }
-  let new_note=NoteForm(setNote_bool, nine_date_keys[selected])
+  let note_form_overlay=NoteForm(setNote_bool, nine_dates[selected])
   if (note_bool) {
     background_styles = {...background_styles,
       filter: 'blur(20px)'}
   } else {
     background_styles = {...background_styles,
       filter: 'blur(0)'}
-    new_note = null
+    note_form_overlay = null
   }
   return ( 
     <div id='appwrap'>
@@ -84,10 +80,10 @@ function App() {
         <div id='rightblock' style={rightblock_styles}>
           <h1 style={{margin: '0', color: 'white', display: 'inline-block', fontSize: '48px', position: 'absolute', top: '110px', right: '307px', zIndex: '100'}}>{weekday_str}</h1>
           <h1 style={{margin: '0', color: 'white', display: 'inline-block', fontSize: '96px', position: 'absolute', top: '70px', left: '305px', zIndex: '100'}}>{day_str}</h1>
-          {NineCubes(selected, setSelected, data_matrix)}
+          {NineCubes(selected, setSelected, makeIconMatrix(nine_data))}
         </div>
       </div>
-      {new_note}
+      {note_form_overlay}
     </div>
   )
 }
